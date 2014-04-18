@@ -1,7 +1,7 @@
 require 'optparse'
 module Passgen
 	class Options
-		DEFAULT_WORDLIST = "/res/2of12.txt"
+		DEFAULT_WORDLIST = File.join(File.expand_path File.dirname(__FILE__), "/res/2of12.txt")
 		attr_reader :wordlist, :acrostic
 		def initialize(argv)
 			@wordlist = DEFAULT_WORDLIST
@@ -15,6 +15,10 @@ module Passgen
 			opts.banner = "Usage: passgen [ options ] acrostic..."
 			
 			opts.on("-w", "--wlist path", String, "Path to wordlist") do |wlist|
+				@wordlist = wlist
+			end
+			
+			opts.on("-h", "--help", String, "Show this message") do |wlist|
 				@wordlist = wlist
 			end
 				begin
