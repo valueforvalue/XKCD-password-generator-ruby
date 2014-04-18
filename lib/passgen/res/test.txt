@@ -1,5 +1,4 @@
-This
-Is
-A
-Test
-Case
+party
+and
+sing
+true

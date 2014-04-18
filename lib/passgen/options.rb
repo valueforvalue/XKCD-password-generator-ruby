@@ -5,8 +5,9 @@ module Passgen
 		attr_reader :wordlist, :acrostic
 		def initialize(argv)
 			@wordlist = DEFAULT_WORDLIST
+			@acrostic = nil
 			parse(argv)
-			@acrostic = argv
+			
 		end
 	private
 		
@@ -18,8 +19,13 @@ module Passgen
 				@wordlist = wlist
 			end
 			
+			opts.on("-a", "--acros word", String, "Word to use as acrostic") do |acros|
+				@acrostic = acros
+			end
+			
 			opts.on("-h", "--help", String, "Show this message") do |wlist|
-				@wordlist = wlist
+				puts opts
+				exit
 			end
 				begin
 					argv = ["-h"] if argv.empty?

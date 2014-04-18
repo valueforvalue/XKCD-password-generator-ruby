@@ -1,0 +1,4 @@
+require 'passgen/runner'
+
+runner = Passgen::Runner.new(ARGV)
+runner.run
