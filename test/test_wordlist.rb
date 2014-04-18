@@ -23,7 +23,7 @@ class TestWordlist < Test::Unit::TestCase
 	context "Test wordlist creation" do
 		should "return wordlist array with 5 words." do
 			wlist = Passgen::Wordlist.new("res/test.txt")::create()
-			assert_equal  5 , wlist.length
+			assert_equal  4 , wlist.length
 		end
 	end
 	

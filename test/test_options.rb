@@ -20,15 +20,15 @@ class TestOptions < Test::Unit::TestCase
 	
 		context "specify acrostic and no wordlist" do
 		should "return the words" do 
-			opts = Passgen::Options.new(["word1", "word2"])
-			assert_equal ["word1","word2"] , opts.acrostic
+			opts = Passgen::Options.new(["-a", "word2"])
+			assert_equal "word2" , opts.acrostic
 		end
 	end
 	
 		context "specify acrostic and wordlist" do
 		should "return the words" do 
-			opts = Passgen::Options.new(["-w", "mywordlist", "word1", "word2"])
-			assert_equal ["word1","word2"] , opts.acrostic
+			opts = Passgen::Options.new(["-w", "mywordlist", "-a", "word2"])
+			assert_equal "word2" , opts.acrostic
 		end
 	end
 end
