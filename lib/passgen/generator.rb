@@ -15,7 +15,7 @@ module Passgen
 				loop do 
 					word = wordlist[rand(wordlist.length)]
 					if word[0] == str 
-						words << word.strip()
+						words << word.chomp
 						break
 					end
 				end
@@ -25,6 +25,9 @@ module Passgen
 			
 		end
 		
+		def gen_multi(wordlist, count)
+			
+		end
 	end
 
 end

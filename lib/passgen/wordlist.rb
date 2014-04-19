@@ -6,15 +6,17 @@ module Passgen
 			@arg = argv
 			@list = nil
 			@temp = File.expand_path File.dirname(__FILE__)
-			@path = File.join(self.temp, self.arg)
+			@path = File.join(temp, arg)
 		end
 		
-		def create()
+		def create(min, max)
 			a = []
-			File.open(self.path) do |f|
+			File.open(path) do |f|
 			f.lines.each do |line|
-				a << line.strip
+				if line::chomp::size >= min && line::chomp::size <= max
+						a << line
 				end
+			end
 			end
 			self.list = a
 		end

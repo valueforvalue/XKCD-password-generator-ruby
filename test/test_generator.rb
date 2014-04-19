@@ -9,7 +9,7 @@ class TestGenerator < Test::Unit::TestCase
 	context "Specify test wordlist & acrostic" do
 		should "return expected acrostic password" do
 			target = ["party", "and", "sing", "true"]
-			wlist = Passgen::Wordlist.new("res/test.txt")::create()
+			wlist = Passgen::Wordlist.new("res/test.txt")::create(3, 5)
 			gen = Passgen::Generator.new()::gen_acrostic(wlist, "past")
 			assert_equal target , gen
 		end
