@@ -1,6 +1,7 @@
 require_relative 'wordlist'
 require_relative 'options'
 require_relative 'generator'
+require_relative 'printer'
 
 module Passgen
 	class Runner
@@ -21,7 +22,7 @@ module Passgen
 			else 
 				puts "Command slipped through."
 			end
-			print generator.pass
+			Printer.new(generator.pass)
 		end
 		
 	end
