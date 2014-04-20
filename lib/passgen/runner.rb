@@ -18,7 +18,8 @@ module Passgen
 				generator::gen_single(wordlist.list)
 			elsif @cmd.options[:acrostic]
 				generator::gen_acrostic(wordlist.list, @cmd.options[:acrostic])
-				
+			elsif @cmd.options[:count]
+				generator::gen_multi(wordlist.list, @cmd.options[:count])
 			else 
 				puts "Command slipped through."
 			end

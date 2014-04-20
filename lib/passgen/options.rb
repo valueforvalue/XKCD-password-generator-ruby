@@ -9,6 +9,7 @@ module Passgen
 			@options[:acrostic] = nil
 			@options[:min] = 3
 			@options[:max] = 5
+			@options[:count] = nil
 			parse(argv)
 			
 		end
@@ -22,20 +23,24 @@ module Passgen
 				@options[:wordlist] = w
 			end
 			
-			opts.on("-s", "--single", "Generate one random word.") do |s|
+			opts.on("-s", "--single", "Generate one random word.") do 
 				@options[:single] = true
 			end
 			
-			opts.on("-m=ARG", String, "Min/Max word size in form 6-10") do |m|
+			opts.on("-m=ARG", String, "Min/Max word size in form -m6-10") do |m|
 				min, max = m.split("-")
 				@options[:min], @options[:max] = min.to_i , max.to_i
+			end
+			
+			opts.on("-c=ARG", String, "Number of words to make password in form -c6") do |c|
+				@options[:count] = c.to_i
 			end
 			
 			opts.on("-a", "--acros word", String, "Word to use as acrostic") do |a|
 				@options[:acrostic] = a
 			end
 			
-			opts.on("-h", "--help", String, "Show this message") do |h|
+			opts.on("-h", "--help", String, "Show this message") do 
 				puts opts
 				exit
 			end
