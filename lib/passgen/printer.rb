@@ -1,27 +1,38 @@
 module Passgen
 	class Printer
 		attr_reader :pass
-		def initialize(pw, delim="-")
-			@pass = pw
-			@delim = delim
-			case pw
-			when String
-				print_string()
-			when Array
-				print_array
-			else
-			puts "Unknown returned password value."
+		def initialize(options)
+			@temp = options[:password]
+			@pass = []
+			@delim = options[:delim]
+			print_array(options)
+		end
+		
+		
+		
+		def print_array(options)
+			@temp.each do |x|
+			  word = x.join(@delim)
+			  @pass << word
 			end
+			puts "Password(s):"
+			@pass.each do |p|
+			  puts "#{p} \n"
+			end
+			
+			if options[:print]
+			  print_to_file(options)
+			end
+			
 		end
 		
-		
-		def print_string()
-			puts "Password: #{@pass}"
-		end
-		
-		def print_array()
-			@pass = @pass.join(@delim)
-			puts "Password: #{@pass}"
+		private
+		def print_to_file(options)
+		    File.open(options[:filename], "w") do |f|
+			  f.puts(@pass)
+			end
+			
+
 		end
 		
 	end

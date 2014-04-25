@@ -2,18 +2,15 @@ module Passgen
 	class Generator
 		attr_reader :pass
 		def initialize()
-			@pass = nil
+			@pass = []
 		end
 		
-		def gen_single(wordlist)
-			@pass = wordlist[rand(wordlist.length)]
-		end
-		
-		def gen_acrostic(wordlist, acrostic)
+		def gen_acrostic(options)
 			words = []
-			acrostic.each_char do |str|
+			list = options[:wordlist]
+			options[:acrostic].each_char do |str|
 				loop do 
-					word = wordlist[rand(wordlist.length)]
+					word = list[rand(list.length)]
 					if word[0] == str 
 						words << word.chomp
 						break
@@ -21,17 +18,21 @@ module Passgen
 				end
 			end
 			
-			@pass = words
+			@pass << words
 			
 		end
 		
-		def gen_multi(wordlist, count)
+		def gen_multi(options)
 			words = []
-			count.downto(1) do 
-				word = wordlist[rand(wordlist.length)]
-				words << word.chomp
+			list = options[:wordlist]
+			options[:number].downto(1) do
+			  options[:count].downto(1) do 
+				  word = list[rand(list.length)]
+				  words << word.chomp
+			  end
+			  @pass << words
+			  words = []
 			end
-			@pass = words
 		end
 		
 	end

@@ -6,24 +6,28 @@ require 'passgen/printer'
 module Passgen
 	class Runner
 		def initialize(argv)
-			@cmd = Options.new(argv)
+			@opts = Options.new(argv)
+			@cmd = @opts.options
+			puts @cmd.inspect
 		end
 		
 		def run()
-			wordlist = Wordlist.new(@cmd.options[:wordlist])
-			wordlist::create(@cmd.options[:min], @cmd.options[:max])
+			wordlist = Wordlist.new(@cmd)
+			wordlist::create(@cmd)
+			@cmd[:wordlist] = wordlist.list
 			generator = Generator.new()
 			
-			if @cmd.options[:single]
-				generator::gen_single(wordlist.list)
-			elsif @cmd.options[:acrostic]
-				generator::gen_acrostic(wordlist.list, @cmd.options[:acrostic])
-			elsif @cmd.options[:count]
-				generator::gen_multi(wordlist.list, @cmd.options[:count])
-			else 
-				puts "Command slipped through."
+			if @cmd[:generate]
+			  generator::gen_multi(@cmd)
+			elsif @cmd[:acrostic]
+			  generator::gen_acrostic(@cmd)
 			end
-			Printer.new(generator.pass)
+			
+			if generator.pass
+			  @cmd[:password] = generator.pass
+			  Printer.new(@cmd)
+			end
+			
 		end
 		
 	end
