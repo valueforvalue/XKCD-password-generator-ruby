@@ -1,50 +1,34 @@
-gem 'minitest'
-require 'minitest/autorun'
+require 'test/unit'
+require 'shoulda'
 require_relative '../lib/passgen/options'
 
 
-class TestGenerator < MiniTest::Test
-  def setup
-	@options = [ "-w","test_wordlist.txt",
-            "-m", "4",
-            "-x", "8",
-            "-c", "5",
-			"-g","-d", 
-			"-", "-n", 
-			"12", "-p", 
-			"test_output.txt",
-			"-a", "anacrostic",
-            ]
-			
-	@opts = Passgen::Options.new(@options)
-  end
-  
-  def test_options_wordlist_default
-	assert_equal "test_wordlist.txt", @opts.options[:wordlist]
-  end
+class TestOptions < Test::Unit::TestCase
 	
-  def test_options_wordlist
-	assert_equal "test_wordlist.txt", @opts.options[:wordlist]
-  end
-  
-  def test_options_acrostic
-	assert_equal "anacrostic" , @opts.options[:acrostic]
-  end
-
-  def test_options_wordlist_acrostic
-	assert_equal "anacrostic" , @opts.options[:acrostic]
-	assert_equal "test_wordlist.txt" , @opts.options[:wordlist]
-  end
-  
-  def test_options_options
-	assert_equal 4 , @opts.options[:min]
-	assert_equal 8 , @opts.options[:max]
-	assert_equal 5 , @opts.options[:count]
-	assert_equal true , @opts.options[:generate]
-	assert_equal "-" , @opts.options[:delim]
-	assert_equal 12 , @opts.options[:number]
-	assert_equal "test_output.txt" , @opts.options[:filename]
-	assert_equal true , @opts.options[:print]
-	assert_equal "anacrostic" , @opts.options[:acrostic]
-  end
+	context "Specify no wordlist." do
+		should "return default" do
+			opts = Passgen::Options.new(["someword"])
+			assert_equal Passgen::Options::DEFAULT_WORDLIST, opts.options[:wordlist]
+		end
+	end
+	context "specify a wordlist" do
+		should "return it" do 
+			opts = Passgen::Options.new(["-w", "mywordlist", "someword"])
+			assert_equal "mywordlist", opts.options[:wordlist]
+		end
+	end
+	
+		context "specify acrostic and no wordlist" do
+		should "return the word" do 
+			opts = Passgen::Options.new(["-a", "word2"])
+			assert_equal "word2" , opts.options[:acrostic]
+		end
+	end
+	
+		context "specify acrostic and wordlist" do
+		should "return the word" do 
+			opts = Passgen::Options.new(["-w", "mywordlist", "-a", "word2"])
+			assert_equal "word2" , opts.options[:acrostic]
+		end
+	end
 end
