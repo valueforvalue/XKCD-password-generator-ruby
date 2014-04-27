@@ -33,6 +33,7 @@ module Passgen
 			  @pass << words
 			  words = []
 			end
+			@pass
 		end
 		
 	end

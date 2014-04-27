@@ -1,18 +1,42 @@
-require 'test/unit'
-require 'shoulda'
+gem 'minitest'
+require 'minitest/autorun'
 require_relative '../lib/passgen/generator'
 require_relative '../lib/passgen/wordlist'
 
 
-class TestGenerator < Test::Unit::TestCase
+class TestGenerator < MiniTest::Test
+  def setup
+  
+	@options = { :wordlist => "test.txt",
+            :min => 3,
+            :max => 5,
+            :count => 4,
+			:generate => false,
+			:delim => " ",
+			:number => 1,
+			:filename => "output.txt",
+			:print => false,
+			:acrostic => "past",
+            }
+    @wordlist = Passgen::Wordlist.new(@options)
+	@wordlist.create(@options)
+	@options[:wordlist] = @wordlist.list
+	@generator = Passgen::Generator.new
+    @target  = [["party", "and", "sing", "true"]]
+  end
+
 	
-	context "Specify test wordlist & acrostic" do
-		should "return expected acrostic password" do
-			target = ["party", "and", "sing", "true"]
-			wlist = Passgen::Wordlist.new("res/test.txt")::create(3, 5)
-			gen = Passgen::Generator.new()::gen_acrostic(wlist, "past")
-			assert_equal target , gen
-		end
-	end
-	
+  def test_acrostic_generation
+    assert_equal @target, @generator::gen_acrostic(@options)
+  end
+  
+  def test_multi_generation
+    assert_equal 4, @generator::gen_multi(@options)[0].length
+  end
+  
+  def test_multi_generation_num
+	@options[:number] = 10
+    assert_equal 10, @generator::gen_multi(@options).length
+  end	
+  	
 end
