@@ -1,5 +1,6 @@
 gem 'minitest'
 require 'minitest/autorun'
+require 'minitest/pride'
 require_relative '../lib/passgen/generator'
 require_relative '../lib/passgen/wordlist'
 
