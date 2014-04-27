@@ -1,5 +1,6 @@
 gem 'minitest'
 require 'minitest/autorun'
+require 'minitest/pride'
 require_relative '../lib/passgen/wordlist'
 
 
@@ -25,7 +26,7 @@ class TestWordlist < MiniTest::Test
   end
 
   def test_wordlist_path
-    assert_equal "C:/Users/A PLUS/passgen/lib/passgen/res/test.txt" , @wordlist.path
+    assert_equal "c:/Users/A PLUS/passgen/lib/passgen/res/test.txt" , @wordlist.path
   end
   
   def test_wordlist_size
