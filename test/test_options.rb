@@ -3,7 +3,7 @@ require 'minitest/autorun'
 require_relative '../lib/passgen/options'
 
 
-class TestGenerator < MiniTest::Test
+class TestOptions < MiniTest::Test
   def setup
 	@options = [ "-w","test_wordlist.txt",
             "-m", "4",

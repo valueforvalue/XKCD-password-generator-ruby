@@ -5,7 +5,7 @@ require_relative '../lib/passgen/wordlist'
 
 
 	
-class TestGenerator < MiniTest::Test
+class TestWordlist < MiniTest::Test
   def setup
   
 	@options = { :wordlist => "test.txt",
