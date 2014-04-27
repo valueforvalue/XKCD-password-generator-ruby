@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+require 'passgen'
+
+runner = Passgen::Runner.new(ARGV)
+runner.run
