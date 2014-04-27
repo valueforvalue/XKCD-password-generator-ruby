@@ -18,12 +18,16 @@ module Passgen
 			end
 			end
 			
+			
+			
 			if a.length == 0 || a.length < 4
 			  puts "Parameters too strict wordlist is empty"
 			  exit(-1)
 			else
 			  self.list = a
 			end
+			
+			
 			
 		end
 		
