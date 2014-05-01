@@ -12,7 +12,7 @@ module Passgen
 			a = []
 			File.open(path) do |f|
 			f.lines.each do |line|
-				if line::chomp::size >= options[:min] && line::chomp::size <= options[:max]
+				if check_min_max(options, line)
 						a << line
 				end
 			end
@@ -25,6 +25,7 @@ module Passgen
 			  exit(-1)
 			else
 			  self.list = a
+			  shuffle_list()
 			end
 			
 			
@@ -32,6 +33,18 @@ module Passgen
 		end
 		
 		private
+		
+		def shuffle_list()
+		    self.list = self.list.shuffle
+		end
+		
+		def check_min_max(options, line)
+		  if line::chomp::size >= options[:min] && line::chomp::size <= options[:max]
+		    true
+		  else
+		    false
+		  end
+		end
 		
 		def make_path(options)
 		  fn = options[:wordlist]
