@@ -9,42 +9,42 @@ module Passgen
 		end
 		
 		def create(options)
+          generate_wordlist(options)		
+		end
+		
+		private
+		
+		def generate_wordlist(options)
 			a = []
+			pattern = "^#{options[:valid]}{#{options[:min]},#{options[:max]}}$"
+			regex = /#{pattern}/
 			File.open(path) do |f|
-			f.lines.each do |line|
-				if check_min_max(options, line)
-						a << line
-				end
+			  f.lines.each do |line|
+			  match = regex.match(line)
+				  if match
+						  a << line
+				  end
+			  end
 			end
-			end
 			
 			
 			
-			if a.length == 0 || a.length < 4
-			  puts "Parameters too strict wordlist is empty"
+			if a.length < options[:count]
+			  puts "\n"
+			  puts "Unable to generate password containing #{options[:count]} words. \n"
+			  puts "Parameters may be too strict or wordlist is too small. \n"
 			  exit(-1)
 			else
 			  self.list = a
 			  shuffle_list()
 			end
-			
-			
-			
 		end
-		
-		private
 		
 		def shuffle_list()
 		    self.list = self.list.shuffle
 		end
 		
-		def check_min_max(options, line)
-		  if line::chomp::size >= options[:min] && line::chomp::size <= options[:max]
-		    true
-		  else
-		    false
-		  end
-		end
+
 		
 		def make_path(options)
 		  fn = options[:wordlist]

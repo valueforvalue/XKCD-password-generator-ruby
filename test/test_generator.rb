@@ -18,6 +18,7 @@ class TestGenerator < MiniTest::Test
 			:filename => "output.txt",
 			:print => false,
 			:acrostic => "past",
+			:valid => ".",
             }
     @wordlist = Passgen::Wordlist.new(@options)
 	@wordlist.create(@options)
