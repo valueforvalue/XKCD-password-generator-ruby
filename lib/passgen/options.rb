@@ -12,6 +12,7 @@ module Passgen
 			:number => 1,
 			:filename => "output.txt",
 			:print => false,
+			:valid => "."
             }
 			
 			parse(argv)
@@ -20,9 +21,9 @@ module Passgen
 		
 		def parse(argv)
 			OptionParser.new do |opts|
-			opts.banner = "Usage: passgen [ options ] acrostic..."
+			opts.banner = "Usage: passgen [ options ]"
 			
-			opts.on("-w", "--wordlist filename", String, "name of wordlist file must be in /res directory") do |w|
+			opts.on("-w", "--wordlist filename", String, "Name of wordlist file must be in /res directory") do |w|
 				@options[:wordlist] = w
 			end
 			
@@ -31,35 +32,45 @@ module Passgen
 				@options[:print] = true
 			end
 			
-			opts.on("-g", "--generate", "generate one random password") do |g|
+			opts.on("-v", "--valid_chars pattern", String, "Valid chars, using regexp style (e.g. '[a-z]')") do |v|
+				@options[:valid] = v
+			end
+			
+			opts.on("-g", "--generate", "Generate one random password") do |g|
 				@options[:generate] = true
 			end
 			
-			opts.on("-m", "--mini=ARG", String, "minimum word size for password eg. -m3") do |m|
+			opts.on("-m", "--mini=ARG", String, "Minimum word size for password eg. -m3") do |m|
 				@options[:min] = m.to_i
 			end
 			
-			opts.on("-x", "--maxi=ARG", String, "maximum word size for password eg. -x5") do |m|
+			opts.on("-x", "--maxi=ARG", String, "Maximum word size for password eg. -x5") do |m|
 				@options[:max] = m.to_i
 			end
 			
-			opts.on("-d", "--delim ARG", String, "delimiter between words in password eg -d -") do |d|
+			opts.on("-d", "--delim ARG", String, "Delimiter between words in password eg -d -") do |d|
 				@options[:delim] = d
 			end
 			
-			opts.on("-a", "--acros word", String, "word to use as acrostic") do |a|
+			opts.on("-a", "--acros word", String, "Word to use as acrostic") do |a|
 				@options[:acrostic] = a
 			end
 			
-			opts.on("-c", "--count ARG", String, "number of words to make random password") do |c|
+			opts.on("-c", "--count ARG", String, "Number of words to make random password") do |c|
 				@options[:count] = c.to_i
 			end
 			
-			opts.on("-n", "--number ARG", String, "number of passwords to generate") do |n|
+			opts.on("-n", "--number ARG", String, "Number of passwords to generate") do |n|
 				@options[:number] = n.to_i
 			end
 			
-			opts.on("-h", "--help", String, "Show this message") do 
+			opts.on_tail("--version", "Show version information about this program and quit.") do
+			  puts "\n"
+              puts "Passgen v0.0.1 alpha"
+              exit
+            end
+			
+			opts.on("-h", "--help", String, "Show options.") do 
 				puts opts
 				exit
 			end

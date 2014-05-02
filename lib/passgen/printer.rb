@@ -15,6 +15,7 @@ module Passgen
 			  word = x.join(@delim)
 			  @pass << word
 			end
+			puts "\n"
 			puts "Password(s):"
 			@pass.each do |p|
 			  puts "#{p} \n"

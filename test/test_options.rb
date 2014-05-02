@@ -15,6 +15,7 @@ class TestOptions < MiniTest::Test
 			"12", "-p", 
 			"test_output.txt",
 			"-a", "anacrostic",
+			"-v", "[a-z]",
             ]
 			
 	@opts = Passgen::Options.new(@options)
@@ -47,5 +48,6 @@ class TestOptions < MiniTest::Test
 	assert_equal "test_output.txt" , @opts.options[:filename]
 	assert_equal true , @opts.options[:print]
 	assert_equal "anacrostic" , @opts.options[:acrostic]
+	assert_equal "[a-z]" , @opts.options[:valid]
   end
 end
