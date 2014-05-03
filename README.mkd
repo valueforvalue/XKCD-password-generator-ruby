@@ -1,0 +1,9 @@
+Passgen
+=============
+
+Generates random multiword passwords.
+
+To Run
+-------------
+* 'cd /passgen'
+* 'Ruby -I lib bin/passgen [options]'
