@@ -1,7 +1,12 @@
 require 'optparse'
 module Passgen
+    # Uses optparse to process the command line arguments.
 	class Options
+		# Holds the default options it is a *Hash*.
 		attr_reader :options
+		# Loads the option hash with default values to be replaced if 
+		# corresponding command line arguments are present.
+		# Calls private method parse to get and set the options.
 		def initialize(argv)
 			@options = { :wordlist => "test.txt",
             :min => 3,

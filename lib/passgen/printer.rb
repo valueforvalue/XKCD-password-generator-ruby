@@ -1,6 +1,9 @@
 module Passgen
+    # Prints the generated password(s) to the *STDOUT* and/or a file.
 	class Printer
+		# Holds the current generated password(s) to be printed to *STDOUT*
 		attr_reader :pass
+		# Sets up password for printing.
 		def initialize(options)
 			@temp = options[:password]
 			@pass = []
@@ -9,7 +12,8 @@ module Passgen
 		end
 		
 		
-		
+		# Adds delimiter between words in password(s),
+		# optionally prints results to a file.
 		def print_array(options)
 			@temp.each do |x|
 			  word = x.join(@delim)
