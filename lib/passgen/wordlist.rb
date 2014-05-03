@@ -1,13 +1,21 @@
 module Passgen
+    # The Wordlist class creates wordlists according to its default settings
+	# or command line options given.
+	#	
 	class Wordlist
-		attr_reader :list, :path
-		attr_writer :list
+		# Contains a reference to the generated wordlist.
+		attr_accessor :list
+		# Contains the path to the current wordfile.
+		attr_reader :path
+		# Sets up the wordlist generation process, takes the options hash and passes it to private methods.
 		def initialize(options)
 			@list = nil
 			@path = nil
 			make_path(options)
 		end
 		
+		# Public wrapper method to generate a wordlist for random password creation.
+		# This method must be called explicitly.
 		def create(options)
           generate_wordlist(options)		
 		end
