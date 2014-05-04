@@ -5,19 +5,19 @@ require_relative '../lib/passgen/options'
 
 
 class TestOptions < MiniTest::Test
-  def setup
+  def setup(extra="")
 	@options = [ "-w","test_wordlist.txt",
             "-m", "4",
             "-x", "8",
             "-c", "5",
-			"-g","-d", 
-			"-", "-n", 
-			"12", "-p", 
+			"-d", "-",
+			"-n", "12",
+			"-p", 
 			"test_output.txt",
 			"-a", "anacrostic",
-			"-v", "[a-z]",
+			"-v", "[a-z]", "-l",
             ]
-			
+	@options << extra
 	@opts = Passgen::Options.new(@options)
   end
   
@@ -42,12 +42,19 @@ class TestOptions < MiniTest::Test
 	assert_equal 4 , @opts.options[:min]
 	assert_equal 8 , @opts.options[:max]
 	assert_equal 5 , @opts.options[:count]
-	assert_equal true , @opts.options[:generate]
 	assert_equal "-" , @opts.options[:delim]
 	assert_equal 12 , @opts.options[:number]
 	assert_equal "test_output.txt" , @opts.options[:filename]
 	assert_equal true , @opts.options[:print]
 	assert_equal "anacrostic" , @opts.options[:acrostic]
 	assert_equal "[a-z]" , @opts.options[:valid]
+	assert_equal true , @opts.options[:list]
+  end
+  
+  def test_generate_option
+    # This must be tested in isolation because the *-g* and *-a* options
+	# cannot be set at the same time.
+    setup("-g")
+	assert_equal true , @opts.options[:generate]
   end
 end

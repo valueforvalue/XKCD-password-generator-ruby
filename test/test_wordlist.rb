@@ -22,8 +22,7 @@ class TestWordlist < MiniTest::Test
 			:valid => ".",
             }
     @wordlist = Passgen::Wordlist.new(@options)
-	@wordlist.create(@options)
-	@options[:wordlist] = @wordlist.list
+	@options[:wordlist] = @wordlist
   end
 
   def test_wordlist_path
@@ -32,6 +31,13 @@ class TestWordlist < MiniTest::Test
   
   def test_wordlist_size
     assert_equal  4 , @options[:wordlist].length
-  end			
-
+  end
+  
+  def test_wordlist_get_word
+    refute_nil @options[:wordlist].get_word()
+  end  
+  
+  def test_wordlist_print_wordfiles
+    refute_nil @options[:wordlist].print_wordfiles()
+  end
 end

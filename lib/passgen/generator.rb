@@ -7,15 +7,26 @@ module Passgen
 		attr_reader :pass
 		# Basic initialization.
 		def initialize()
-			@pass = []
+			@pass = nil
 		end
-        # Generate password constrained by the letters contained in acrostic word.
+		
+		# Generate password constrained by the letters contained in acrostic word.
 		def gen_acrostic(options)
+		  acrostic(options)
+		end
+		
+		# Generates multi word and multiple passwords from a wordlist.
+		def gen_multi(options)
+		  multi(options)
+		end
+		
+		private
+		def acrostic(options)
+		    @pass = Array.new
 			words = []
-			list = options[:wordlist]
 			options[:acrostic].each_char do |str|
 				loop do 
-					word = list[SecureRandom.random_number(list.length)]
+					word = options[:wordlist].get_word()
 					if word[0] == str 
 						words << word.chomp
 						break
@@ -26,13 +37,13 @@ module Passgen
 			@pass << words
 			
 		end
-		# Generates multi word and multiple passwords from a wordlist.
-		def gen_multi(options)
+
+		def multi(options)
+		    @pass = Array.new
 			words = []
-			list = options[:wordlist]
 			options[:number].downto(1) do
 			  options[:count].downto(1) do 
-				  word = list[SecureRandom.random_number(list.length)]
+				  word = options[:wordlist].get_word()
 				  words << word.chomp
 			  end
 			  @pass << words
