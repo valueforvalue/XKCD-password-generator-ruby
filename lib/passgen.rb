@@ -3,7 +3,7 @@ require 'passgen/options'
 require 'passgen/generator'
 require 'passgen/printer'
 
-# Module that wraps all of Passgens functionality in one single package.
+# Module that wraps all of Passgens functionality in a single package.
 module Passgen
 
     # The runner class sews all other classes together.
@@ -24,9 +24,12 @@ module Passgen
 		#
 		def run()
 			wordlist = Wordlist.new(@cmd)
-			wordlist::create(@cmd)
-			@cmd[:wordlist] = wordlist.list
+			@cmd[:wordlist] = wordlist
 			generator = Generator.new()
+			
+			if @cmd[:list]
+			  wordlist::print_wordfiles
+			end
 			
 			if @cmd[:generate]
 			  generator::gen_multi(@cmd)

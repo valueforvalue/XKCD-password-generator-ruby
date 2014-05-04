@@ -12,15 +12,38 @@ module Passgen
 			@list = nil
 			@path = nil
 			make_path(options)
+			create(options)
 		end
 		
 		# Public wrapper method to generate a wordlist for random password creation.
-		# This method must be called explicitly.
 		def create(options)
           generate_wordlist(options)		
 		end
 		
+		# Returns a random word from the created wordlist.
+		def get_word()
+		  return_word()
+		end
+		
+		# Returns the generated wordlists length.
+		def length()
+		  @list.length
+		end
+		# Prints a list of the wordfiles to be used with the -w option.
+		def print_wordfiles
+		  puts "\n"
+		  puts "Wordfiles avaliable for use:"
+		  puts "\n"
+		  get_wordfile_names().each do |filename|
+		    puts filename
+		  end
+		end
+		
 		private
+		
+		def return_word()
+		  @list[SecureRandom.random_number(@list.length)]
+		end
 		
 		def generate_wordlist(options)
 			a = []
@@ -58,6 +81,16 @@ module Passgen
 		  fn = options[:wordlist]
 		  temp = File.expand_path File.dirname(__FILE__) + "/res/"
 		  @path = File.join(temp, fn)
+		end
+		
+		def get_wordfile_dir
+		  temp = File.expand_path File.dirname(__FILE__) + "/res/"
+		  Dir.new(temp)
+		end
+		
+		def get_wordfile_names
+		  Dir.chdir(get_wordfile_dir())
+		  wordfiles = Dir.glob("*.txt")
 		end
 	end
 

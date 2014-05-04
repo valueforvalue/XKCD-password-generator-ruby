@@ -21,8 +21,7 @@ class TestGenerator < MiniTest::Test
 			:valid => ".",
             }
     @wordlist = Passgen::Wordlist.new(@options)
-	@wordlist.create(@options)
-	@options[:wordlist] = @wordlist.list
+	@options[:wordlist] = @wordlist
 	@generator = Passgen::Generator.new
     @target  = [["party", "and", "sing", "true"]]
   end

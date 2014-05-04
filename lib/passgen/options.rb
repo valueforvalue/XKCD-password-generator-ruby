@@ -17,7 +17,8 @@ module Passgen
 			:number => 1,
 			:filename => "output.txt",
 			:print => false,
-			:valid => "."
+			:valid => ".",
+			:list => false,
             }
 			
 			parse(argv)
@@ -57,8 +58,17 @@ module Passgen
 				@options[:delim] = d
 			end
 			
+			opts.on("--list", "List the wordfiles contained in /res directory for use with the -w option.") do |l|
+				@options[:list] = true
+			end
+			
 			opts.on("-a", "--acros word", String, "Word to use as acrostic") do |a|
-				@options[:acrostic] = a
+			    if @options[:generate]
+				  puts "The -g option cannot be set when using acrostic."
+				  exit(-1)
+				else
+				  @options[:acrostic] = a
+				end
 			end
 			
 			opts.on("-c", "--count ARG", String, "Number of words to make random password") do |c|
