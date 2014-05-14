@@ -1,3 +1,4 @@
+# coding: utf-8
 module Passgen
     # Prints the generated password(s) to the *STDOUT* and/or a file.
   class Printer
@@ -10,8 +11,7 @@ module Passgen
       @delim = options[:delim]
       print_array(options)
     end
-    
-    
+
     # Adds delimiter between words in password(s),
     # optionally prints results to a file.
     def print_array(options)
@@ -20,26 +20,19 @@ module Passgen
         @pass << word
       end
       puts "\n"
-      puts "Password(s):"
+      puts 'Password(s):'
       @pass.each do |p|
         puts "#{p} \n"
       end
-      
-      if options[:print]
-        print_to_file(options)
-      end
-      
+      print_to_file(options) if options[:print]
     end
-    
+
     private
+
     def print_to_file(options)
-        File.open(options[:filename], "w") do |f|
+      File.open(options[:filename], 'w') do |f|
         f.puts(@pass)
       end
-      
-
     end
-    
   end
-
 end
