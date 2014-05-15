@@ -1,5 +1,6 @@
 ﻿# coding: utf-8
 require 'optparse'
+require 'yaml'
 module Passgen
     # Uses optparse to process the command line arguments.
   class Options
@@ -9,20 +10,7 @@ module Passgen
     # corresponding command line arguments are present.
     # Calls private method parse to get and set the options.
     def initialize(argv)
-      @options = {
-        wordlist: 'test.txt',
-        min: 3,
-        max: 5,
-        count: 4,
-        generate: false,
-        delim: ' ',
-        number: 1,
-        filename: 'output.txt',
-        print: false,
-        valid: '.',
-        list: false
-        }
-
+      @options = YAML::load_file('lib/passgen/config.yaml')
       parse(argv)
     end
 
