@@ -1,0 +1,12 @@
+---
+:wordlist: test.txt
+:min: 3
+:max: 5
+:count: 4
+:generate: false
+:delim: ! ' '
+:number: 1
+:filename: output.txt
+:print: false
+:valid: .
+:list: false
