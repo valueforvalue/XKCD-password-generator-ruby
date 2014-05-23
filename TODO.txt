@@ -1,0 +1,2 @@
+1. Recode OPTIONS to use slop for subcommands.
+2. Fix RUNNER so it isn't so messy.
