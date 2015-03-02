@@ -13,5 +13,5 @@ Gem::Specification.new do |s|
   "lib/passgen/res/wordsEn.txt",]
   s.test_files = Dir.glob('test/test_*.rb')
   s.homepage    = 'http:\\localhost.com'
-  s.license     = 'MIT'
+  s.license     = 'BSD'
 end
