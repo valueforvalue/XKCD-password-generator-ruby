@@ -14,11 +14,11 @@ Also I didn't code an option for displaying entropy data, or an interactive gene
 the resulting passwords to a file which the original lacks to my knowledge.
 There are tests for this project, one of them uses a hardcoded absolute path which wont be present on your system. Update it accordingly.
 
-==Dictionaries
+== Dictionaries
 
 This program has several wordlists used for password generation, I cannot remember where I collected them from or I would give attribution.
 There is a test wordlist that I made to use for the tests.
 
-==License
+== License
 
 This is free software: you may copy, modify, and/or distribute this work under the terms of the BSD 3-Clause license. See the file LICENSE.BSD for details.
